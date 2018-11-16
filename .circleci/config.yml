@@ -5,7 +5,7 @@ jobs:
       - image: brandfolderdocker/circleci-flynntools-base:latest
     steps:
       - checkout
-      - run: initialize-flynn.sh staging
+      - run: initialize-flynn.sh production
       - run:
           name: git push
           command: git push production $CIRCLE_SHA1:refs/heads/master
@@ -17,6 +17,7 @@ workflows:
   deploy:
     jobs:
       - deploy:
+          context: flynn-production-credentials
           filters:
             branches:
               only: /master/
